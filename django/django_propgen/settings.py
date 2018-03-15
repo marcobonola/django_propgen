@@ -68,7 +68,7 @@ DATABASES = {
         'NAME': 'django_propgen',
         'USER': 'django_propgen',
         'PASSWORD': 'django_propgen',
-        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'HOST': 'propgen-db',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
