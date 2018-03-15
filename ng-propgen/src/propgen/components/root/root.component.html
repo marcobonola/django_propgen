@@ -1,0 +1,13 @@
+<mat-toolbar>
+  <a mat-button routerLink="/">
+    Back to menu
+  </a>
+  <button mat-button [matMenuTriggerFor]="proposalElements">
+    Proposal elements
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <button mat-button>Admin</button>
+  <mat-menu #proposalElements="matMenu">
+    <button mat-menu-item>Textblocks</button>
+  </mat-menu>
+</mat-toolbar>
