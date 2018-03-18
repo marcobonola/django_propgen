@@ -1,20 +1,20 @@
 version: '3'
 services:
         propgen-db:
-                image: mysql
+                build: ./mysql
                 ports:
                         - "33306:3306"
                 env_file:
                         - ./mysql/conf/env 
         propgen-be:
                 build: ./django/
-                command: bash -c "echo sleeping 20 seconds && sleep 20 && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata proposal/fixtures/project.json && python manage.py loaddata proposal/fixtures/settings.json && python manage.py loaddata proposal/fixtures/template.json && python manage.py loaddata proposal/fixtures/textblock.json  && uwsgi --socket :8000 --module django_propgen.wsgi"
+                command: [bash, "-c", "./post_build_setup.sh && uwsgi --socket :8000 --module django_propgen.wsgi"]
                 volumes:
-                        - ./django/:/code
-                        - ./django/conf/:/etc/nginx/sites-enabled/
+                        - ./django/static/:/code/static
+                        #- ./django/:/code
+                        #- ./django/conf/:/etc/nginx/sites-enabled/
                 depends_on:
                         - propgen-db
-
         propgen-lb:
                 image: nginx
                 ports:

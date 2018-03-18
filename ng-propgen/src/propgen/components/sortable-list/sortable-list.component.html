@@ -5,10 +5,11 @@
 <mat-list [sortablejs]="entities" [sortablejsOptions]="sortableOptions">
   <mat-list-item *ngFor="let e of entities">
     <h3 mat-line>
-      <span *ngIf="canReorder" class="sort-handle"><mat-icon>swap_vert</mat-icon></span>
+      <button mat-icon-button disabled *ngIf="canReorder" class="sort-handle" style="color: currentColor;"><mat-icon>swap_vert</mat-icon></button>
+      <button mat-icon-button (click)="onEditButtonClick(e)"><mat-icon mat-list-icon>mode_edit</mat-icon></button>
       {{e.title}}
     </h3>
     <button *ngIf="hasVersioning === true" mat-icon-button (click)="onVersionButtonClick(e)"><mat-icon mat-list-icon>change_history</mat-icon></button>
-    <button mat-icon-button (click)="onEditButtonClick(e)"><mat-icon mat-list-icon>mode_edit</mat-icon></button>
+    <button *ngIf="canDelete === true" mat-icon-button (click)="onDeleteButtonClick(e)"><mat-icon mat-list-icon>delete_forever</mat-icon></button>
   </mat-list-item>
 </mat-list>

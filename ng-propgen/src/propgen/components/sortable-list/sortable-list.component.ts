@@ -10,10 +10,12 @@ export class SortableListComponent {
   @Input() entities: SortableEntity[];
   @Input() hasVersioning: boolean = false;
   @Input() canReorder: boolean = false;
+  @Input() canDelete: boolean = false;
   @Output() onCreateEntity = new EventEmitter();
   @Output() onEditEntity = new EventEmitter<SortableEntity>();
   @Output() onReorder = new EventEmitter<SortableEntity[]>();
   @Output() onVersionEntity = new EventEmitter<SortableEntity>();
+  @Output() onDeleteEntity = new EventEmitter<SortableEntity>();
 
   public sortableOptions = {
     // see https://github.com/RubaXa/Sortable#options
@@ -35,6 +37,10 @@ export class SortableListComponent {
 
   public onVersionButtonClick(entity: SortableEntity) {
     this.onVersionEntity.emit(entity);
+  }
+
+  public onDeleteButtonClick(entity: SortableEntity) {
+    this.onDeleteEntity.emit(entity);
   }
 
 }

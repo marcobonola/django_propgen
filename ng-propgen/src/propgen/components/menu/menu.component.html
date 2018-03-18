@@ -1,3 +1,8 @@
+<div [class.loader-hidden]="!loading" class="loader-overlay">
+  <div class="flex-container">
+    <mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
+  </div>
+</div>
 <propgen-root></propgen-root>
 <h1 class="mat-headline">Proposal editing made easy</h1>
 <mat-tab-group>
@@ -23,9 +28,10 @@
   </mat-tab>
   <mat-tab label="Produce files &amp; output">
     <mat-list>
-      <mat-list-item><button mat-button disabled>Execute all templates</button></mat-list-item>
+      <mat-list-item><button mat-button (click)="instantiate()">Instantiate all templates</button></mat-list-item>
       <mat-list-item><button mat-button disabled>Pick individual template to run</button></mat-list-item>
-      <mat-list-item><button mat-button disabled>Produce all output files (PDF)</button></mat-list-item>
+      <mat-list-item><button mat-button (click)="createLatex()">Produce LaTeX files from template</button></mat-list-item>
+      <mat-list-item><button mat-button (click)="runLatex()">Produce all output files (PDF)</button></mat-list-item>
       <mat-list-item><button mat-button disabled>Pick a single output file to produce</button></mat-list-item>
     </mat-list>
   </mat-tab>

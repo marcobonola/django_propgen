@@ -9,6 +9,7 @@ export type AutogeneratableSettings = {
   orderable?: boolean;
   hasVersioning?: boolean;
   component?: Type<ModelFormComponent>;
+  forbidDeletion?: boolean;
 }
 export type AutogeneratableProperties = {
   [name: string]: ModelPropertyType

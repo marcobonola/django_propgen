@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {MenuComponent} from './components/menu/menu.component';
 import {
-  MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
+  MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
   MatMenuModule, MatPaginatorModule,
   MatProgressSpinnerModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule,
   MatToolbarModule
@@ -39,6 +39,8 @@ import {TaskPartnerEffortComponent} from './components/task-partner-effort/task-
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {DeliverablePartnerTaskEffortComponent} from './components/deliverable-partner-task-effort/deliverable-partner-task-effort.component';
 import {MilestonePartnerTaskEffortComponent} from './components/milestone-partner-task-effort/milestone-partner-task-effort.component';
+import {InstantiationDialogComponent} from './components/menu/dialogs/instantiation.dialog.component';
+import {CreateLatexDialogComponent} from './components/menu/dialogs/create-latex.dialog.component';
 
 const catchAll: Routes = [
   {
@@ -70,9 +72,11 @@ const catchAll: Routes = [
     AutomaticModelFormVersionComponent,
     AutomaticModelFormVersionListComponent,
     CatchAllComponent,
+    CreateLatexDialogComponent,
     CrossTableComponent,
     DeliverablePartnerTaskEffortComponent,
     DetailEditorComponent,
+    InstantiationDialogComponent,
     MenuComponent,
     MilestonePartnerTaskEffortComponent,
     RootComponent,
@@ -102,6 +106,7 @@ const catchAll: Routes = [
     PropgenSharedModule,
 
     MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -128,6 +133,10 @@ const catchAll: Routes = [
     MenuComponent,
     RootComponent,
     RouterModule,
+  ],
+  entryComponents: [
+    CreateLatexDialogComponent,
+    InstantiationDialogComponent,
   ]
 })
 export class PropgenModule {

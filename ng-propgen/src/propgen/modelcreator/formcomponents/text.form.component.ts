@@ -5,7 +5,7 @@ import {ModelPropertyType} from '../base/model.property.type';
 @Component({
   selector: 'propgen-text-form-input',
   template: '<mat-form-field hintLabel="{{helpText}}">\n' +
-  '  <textarea matInput [formControl]="formControl" placeholder="{{placeholder}}"></textarea>\n' +
+  '  <textarea matTextareaAutosize matInput matAutosizeMinRows="5" matAutosizeMaxRows="30" [formControl]="formControl" placeholder="{{placeholder}}"></textarea>\n' +
   '</mat-form-field>'
 })
 export class TextFormComponent extends ModelFormComponent {

@@ -1,7 +1,7 @@
 <div class="md-preview-container">
   <div [ngClass]="{'md-preview-input': !previewPopout, 'md-preview-input-popout': previewPopout}">
     <mat-form-field class="md-fullwidth md-minheight">
-      <textarea class="md-minheight" matInput [(ngModel)]="data" placeholder="{{placeholder}}"></textarea>
+      <textarea matTextareaAutosize matAutosizeMinRows="1" matAutosizeMaxRows="5" class="md-minheight" matInput [(ngModel)]="data" placeholder="{{placeholder}}"></textarea>
     </mat-form-field>
   </div>
   <div class="md-preview" *ngIf="!previewPopout">

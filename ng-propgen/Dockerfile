@@ -12,7 +12,6 @@ FROM johnpapa/angular-cli as angular
 RUN mkdir /code
 WORKDIR /code
 ADD . /code/
-#RUN npm install -g @angular/cli 
 #RUN npm install -g @angular-devkit/core    
 RUN npm install
 

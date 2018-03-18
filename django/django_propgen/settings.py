@@ -173,7 +173,7 @@ default_settings = {
              'uploaded': os.path.join(MEDIA_ROOT, MARKDOWNX_MEDIA_PATH),
              'tarball': os.path.join(MEDIA_ROOT, 'produced', 'output.tgz')
              },
-    'pandoc': {'filters': ['../pandoc/pandoc-crossref',
+    'pandoc': {'filters': ['../pandoc/.cabal-sandbox/bin/pandoc-crossref',
                            # '../pandoc/.cabal-sandbox/bin/pandoc-citeproc',
                            ],
                'extra_args': ['--top-level-division=chapter',

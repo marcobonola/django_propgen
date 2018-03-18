@@ -15,11 +15,13 @@ import {RouteMode} from '../catch-all/catch-all.component';
   '  (onCreateEntity)="add()"\n' +
   '  (onEditEntity)="edit($event)"\n' +
   '  (onVersionEntity)="routeToVersion($event)"\n' +
+  '  (onDeleteEntity)="delete($event)"' +
   '  [title]="title"\n' +
   '  (onReorder)="onReorder($event)"\n' +
   '  [entities]="sortableData"\n' +
   '  [hasVersioning]="hasVersioning"\n' +
-  '  [canReorder]="canReorder">\n' +
+  '  [canReorder]="canReorder"' +
+  '  [canDelete]="canDelete">\n' +
   '</propgen-sortable-list>'
 })
 export class AutomaticModelFormListComponent implements OnDestroy {
@@ -36,6 +38,7 @@ export class AutomaticModelFormListComponent implements OnDestroy {
   protected path: string;
   public hasVersioning: boolean = false;
   public canReorder: boolean = false;
+  public canDelete: boolean = false;
   private onReceiveData(next: RESTModelInterface[]) {
     this.data = next.map(d => new this._type(d));
     Promise.all(this.data.map((d) => {
@@ -60,6 +63,7 @@ export class AutomaticModelFormListComponent implements OnDestroy {
     let generatorProperties: AutogeneratableSettings = t.prototype.getAutoGeneratorSettings();
     this.hasVersioning = generatorProperties.hasVersioning;
     this.canReorder = generatorProperties.orderable;
+    this.canDelete = !generatorProperties.forbidDeletion;
     const detailRoute = generatorProperties.routes.find(r => r.mode === RouteMode.Detail);
     if(detailRoute) {
       this.path = detailRoute.path.replace(':id', '');
@@ -92,5 +96,14 @@ export class AutomaticModelFormListComponent implements OnDestroy {
   }
   public routeToVersion($event) {
     this.router.navigate([this.path, $event.id, 'versions']);
+  }
+  public delete($event: SortableEntity): void {
+    const entity = this.data.find(d => d.id === $event.id);
+    if(entity) {
+      this.backend.delete(this._type, entity);
+    }
+    else {
+      console.warn('Cannot delete', $event, 'since it does not exist');
+    }
   }
 }
