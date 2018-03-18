@@ -19,3 +19,4 @@ ENV PATH /pandoc/.cabal-sandbox/bin:$PATH
 RUN mv pandoc/ /pandoc
 
 WORKDIR /code
+RUN  rm -f .post_build_setup_done

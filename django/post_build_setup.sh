@@ -16,6 +16,7 @@ if [ -f .post_build_setup_done ];
     python manage.py loaddata proposal/fixtures/settings.json
     python manage.py loaddata proposal/fixtures/template.json
     python manage.py loaddata proposal/fixtures/textblock.json 
+    python manage.py loaddata proposal/fixtures/proposal.json 
     touch .post_build_setup_done
 
     echo "create super user"
