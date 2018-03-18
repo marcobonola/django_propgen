@@ -15,7 +15,7 @@ ADD . /code/
 #RUN apt-get install -y --no-install-recommends cabal-install-1.24 ghc-8.0.2 happy-1.19.5 alex-3.1.7  \
 #            zlib1g-dev libtinfo-dev libsqlite3-0 libsqlite3-dev ca-certificates g++ 
 #ENV PATH /code/pandoc/.cabal-sandbox/bin:/root/.cabal/bin:/root/.local/bin:/opt/cabal/1.24/bin:/opt/ghc/8.0.2/bin:/opt/happy/1.19.5/bin:/opt/alex/3.1.7/bin:$PATH
-ENV PATH /code/pandoc/.cabal-sandbox/bin:$PATH
+ENV PATH /pandoc/.cabal-sandbox/bin:$PATH
 RUN mv pandoc/ /pandoc
 
 WORKDIR /code
