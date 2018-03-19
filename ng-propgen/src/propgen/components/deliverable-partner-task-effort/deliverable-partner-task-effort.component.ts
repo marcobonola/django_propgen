@@ -43,29 +43,29 @@ export class DeliverablePartnerTaskEffortComponent implements OnInit, OnDestroy 
       case 'd':
         values = this.deliverablePartnerTaskPM.filter(pm => pm.deliverable === id).map(pm => {
           return {
-            colId: pm.task,
-            rowId: pm.partner,
+            colId: pm.partner,
+            rowId: pm.task,
             value: pm.effort,
           }
         });
         this.data = {...this.data,
           values: values,
-          rowDescription: 'Partners', rows: this.partners,
-          colDescription: 'Tasks', cols: this.tasks
+          colDescription: 'Partners', cols: this.partners,
+          rowDescription: 'Tasks', rows: this.tasks
         };
         break;
       case 'p':
         values = this.deliverablePartnerTaskPM.filter(pm => pm.partner === id).map(pm => {
           return {
-            colId: pm.task,
-            rowId: pm.deliverable,
+            colId: pm.deliverable,
+            rowId: pm.task,
             value: pm.effort,
           }
         });
         this.data = {...this.data,
           values: values,
-          rowDescription: 'Deliverables', rows: this.deliverables,
-          colDescription: 'Tasks', cols: this.tasks
+          colDescription: 'Deliverables', cols: this.deliverables,
+          rowDescription: 'Tasks', rows: this.tasks
         };
         break;
       case 't':
@@ -152,20 +152,20 @@ export class DeliverablePartnerTaskEffortComponent implements OnInit, OnDestroy 
     switch (this._selected[0]) {
       case 'd':
         existing = this.deliverablePartnerTaskPM.find(pm =>
-          pm.deliverable === id && pm.partner === $event.rowId && pm.task === $event.colId);
+          pm.deliverable === id && pm.partner === $event.colId && pm.task === $event.rowId);
         pm = {
           deliverable: id,
-          partner: $event.rowId,
-          task: $event.colId
+          partner: $event.colId,
+          task: $event.rowId
         };
         break;
       case 'p':
         existing = this.deliverablePartnerTaskPM.find(pm =>
-          pm.deliverable === $event.rowId && pm.partner === id && pm.task === $event.colId);
+          pm.deliverable === $event.colId && pm.partner === id && pm.task === $event.rowId);
         pm = {
-          deliverable: $event.rowId,
+          deliverable: $event.colId,
           partner: id,
-          task: $event.colId
+          task: $event.rowId
         };
         break;
       case 't':

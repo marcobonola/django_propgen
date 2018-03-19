@@ -168,7 +168,7 @@ import {RouteMode} from '../../components/catch-all/catch-all.component';
 export class Partner extends AutogeneratableModel {
   toListItem(injector?: Injector) {
     return new Promise<SortableEntity>((resolve) => {
-      resolve(new SortableEntity(this.id, this['partnername'] + ' (' + this['shortname'] + ')'));
+      resolve(new SortableEntity(this.id, this['shortname']));
     });
   }
 }

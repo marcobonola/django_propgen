@@ -43,43 +43,43 @@ export class MilestonePartnerTaskEffortComponent implements OnInit, OnDestroy {
       case 'm':
         values = this.milestonePartnerTaskPM.filter(pm => pm.milestone === id).map(pm => {
           return {
-            colId: pm.task,
-            rowId: pm.partner,
+            colId: pm.partner,
+            rowId: pm.task,
             value: pm.effort,
           }
         });
         this.data = {...this.data,
           values: values,
-          rowDescription: 'Partners', rows: this.partners,
-          colDescription: 'Tasks', cols: this.tasks
+          colDescription: 'Partners', cols: this.partners,
+          rowDescription: 'Tasks', rows: this.tasks
         };
         break;
       case 'p':
         values = this.milestonePartnerTaskPM.filter(pm => pm.partner === id).map(pm => {
           return {
-            colId: pm.task,
+            colId: pm.milestone,
+            rowId: pm.task,
+            value: pm.effort,
+          }
+        });
+        this.data = {...this.data,
+          values: values,
+          colDescription: 'Milestones', cols: this.milestones,
+          rowDescription: 'Tasks', rows: this.tasks
+        };
+        break;
+      case 't':
+        values = this.milestonePartnerTaskPM.filter(pm => pm.task === id).map(pm => {
+          return {
+            colId: pm.partner,
             rowId: pm.milestone,
             value: pm.effort,
           }
         });
         this.data = {...this.data,
           values: values,
-          rowDescription: 'Milestones', rows: this.milestones,
-          colDescription: 'Tasks', cols: this.tasks
-        };
-        break;
-      case 't':
-        values = this.milestonePartnerTaskPM.filter(pm => pm.task === id).map(pm => {
-          return {
-            colId: pm.milestone,
-            rowId: pm.partner,
-            value: pm.effort,
-          }
-        });
-        this.data = {...this.data,
-          values: values,
-          rowDescription: 'Partners', rows: this.partners,
-          colDescription: 'Milestones', cols: this.milestones
+          colDescription: 'Partners', cols: this.partners,
+          rowDescription: 'Milestones', rows: this.milestones
         };
         break;
       default:
@@ -152,28 +152,28 @@ export class MilestonePartnerTaskEffortComponent implements OnInit, OnDestroy {
     switch (this._selected[0]) {
       case 'm':
         existing = this.milestonePartnerTaskPM.find(pm =>
-          pm.milestone === id && pm.partner === $event.rowId && pm.task === $event.colId);
+          pm.milestone === id && pm.partner === $event.colId && pm.task === $event.rowId);
         pm = {
           milestone: id,
-          partner: $event.rowId,
-          task: $event.colId
+          partner: $event.colId,
+          task: $event.rowId
         };
         break;
       case 'p':
         existing = this.milestonePartnerTaskPM.find(pm =>
-          pm.milestone === $event.rowId && pm.partner === id && pm.task === $event.colId);
+          pm.milestone === $event.colId && pm.partner === id && pm.task === $event.rowId);
         pm = {
-          milestone: $event.rowId,
+          milestone: $event.colId,
           partner: id,
-          task: $event.colId
+          task: $event.rowId
         };
         break;
       case 't':
         existing = this.milestonePartnerTaskPM.find(pm =>
-          pm.milestone === $event.colId && pm.partner === $event.rowId && pm.task === id);
+          pm.milestone === $event.rowId && pm.partner === $event.colId && pm.task === id);
         pm = {
-          milestone: $event.colId,
-          partner: $event.rowId,
+          milestone: $event.rowId,
+          partner: $event.colId,
           task: id
         };
         break;

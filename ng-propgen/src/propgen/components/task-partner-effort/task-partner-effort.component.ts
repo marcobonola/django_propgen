@@ -16,8 +16,8 @@ export class TaskPartnerEffortComponent implements OnInit, OnDestroy {
     cols: [],
     rows: [],
     values: [],
-    colDescription: 'Task',
-    rowDescription: 'Partner'
+    colDescription: 'Partner',
+    rowDescription: 'Task'
   };
   private taskSubscription: Subscription;
   private partnerSubscription: Subscription;
@@ -32,7 +32,7 @@ export class TaskPartnerEffortComponent implements OnInit, OnDestroy {
           return new Task(t).toListItem(this.injector);
         })).then((data) => {
           // simple assignment does not trigger change detection;
-          this.data = { ...this.data, cols: data };
+          this.data = { ...this.data, rows: data };
         });
       }
     );
@@ -42,7 +42,7 @@ export class TaskPartnerEffortComponent implements OnInit, OnDestroy {
           return new Partner(p).toListItem(this.injector);
         })).then((data) => {
           // simple assignment does not trigger change detection;
-          this.data = { ...this.data, rows: data };
+          this.data = { ...this.data, cols: data };
         });
       }
     );
@@ -51,8 +51,8 @@ export class TaskPartnerEffortComponent implements OnInit, OnDestroy {
         this.taskPartnerPM = values;
         this.data = { ...this.data, values: values.map(v => {
           return {
-            colId: v.task,
-            rowId: v.partner,
+            colId: v.partner,
+            rowId: v.task,
             value: v.effort,
           }
         })};
@@ -71,11 +71,11 @@ export class TaskPartnerEffortComponent implements OnInit, OnDestroy {
     }
   }
   public onUpdate($event: CrossTableValue) {
-    let existing = this.taskPartnerPM.find(pm => pm.partner === $event.rowId && pm.task === $event.colId);
+    let existing = this.taskPartnerPM.find(pm => pm.partner === $event.colId && pm.task === $event.rowId);
     if(!existing) {
       existing = new TaskPartnerPM({
-        partner: $event.rowId,
-        task: $event.colId,
+        partner: $event.colId,
+        task: $event.rowId,
         effort: $event.value
       });
     }
