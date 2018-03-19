@@ -30,6 +30,9 @@ export class CrossTableComponent implements OnInit {
     rowDescription: 'y'
   };
   public values = [];
+  public get tableName(): string {
+    return this._data.rowDescription + ' / ' + this._data.colDescription;
+  }
   @Input() public set data(d: CrossTableData) {
     this._data = d;
     this.values = [];
