@@ -326,7 +326,7 @@ class RunPdflatex(ExecutionView):
                 cwd=self.latex_dir,
             )
 
-            r['result'] = compProc
+            r['result'] = {'stdout': compProc.stdout, 'stderr': compProc.stderr, 'returncode': compProc.returncode}
 
         except Exception as e:
             r['exception'] += e.__str__()
@@ -353,15 +353,17 @@ class RunPdflatex(ExecutionView):
         else:
             r['pdf'] = template.name[:-4]+".pdf"
 
+        if 'pdf' in r:
+            # TODO: check that file exists, but it should...
 
-        # TODO: check that file exists, but it should...
-
-
-        r.update({'run1': self.pdflatex(template)})
-        r.update({'bibtex': self.bibtex(template)})
-        # r.update({'run2': self.pdflatex(template)})
-        # r.update({'run3': self.pdflatex(template)})
-
+            r.update({'run1': self.pdflatex(template)})
+            r.update({'bibtex': self.bibtex(template)})
+            # r.update({'run2': self.pdflatex(template)})
+            # r.update({'run3': self.pdflatex(template)})
+            if not os.path.isfile(os.path.join(self.latex_dir, r['pdf'])):
+                r['result'] = 'no file generated'
+        else:
+            r['result'] = 'error'
 
         return r
 
@@ -395,7 +397,7 @@ class RunPdflatex(ExecutionView):
 
         pk = kwargs.pop('pk', None)
         print(pk)
-        result = super().get_context_data(**kwargs)
+        result = {}
 
         if pk:
             startfiles = [get_object_or_404(proposal.models.Template,
