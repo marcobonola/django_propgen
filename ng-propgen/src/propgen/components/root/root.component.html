@@ -2,10 +2,6 @@
   <a mat-button routerLink="/">
     Back to menu
   </a>
-  <button mat-button [matMenuTriggerFor]="proposalElements">
-    Proposal elements
-    <mat-icon>more_vert</mat-icon>
-  </button>
   <a mat-button href="{{ backend }}/admin/">Admin</a>
   <mat-menu #proposalElements="matMenu">
     <button mat-menu-item>Textblocks</button>
