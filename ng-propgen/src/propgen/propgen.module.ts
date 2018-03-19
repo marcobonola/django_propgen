@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {MenuComponent} from './components/menu/menu.component';
 import {
-  MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
+  MatButtonModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
   MatMenuModule, MatPaginatorModule,
   MatProgressSpinnerModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatTabsModule,
   MatToolbarModule
@@ -41,6 +41,7 @@ import {DeliverablePartnerTaskEffortComponent} from './components/deliverable-pa
 import {MilestonePartnerTaskEffortComponent} from './components/milestone-partner-task-effort/milestone-partner-task-effort.component';
 import {InstantiationDialogComponent} from './components/menu/dialogs/instantiation.dialog.component';
 import {CreateLatexDialogComponent} from './components/menu/dialogs/create-latex.dialog.component';
+import {RunLatexDialogComponent} from './components/menu/dialogs/run-latex.dialog.component';
 
 const catchAll: Routes = [
   {
@@ -80,6 +81,7 @@ const catchAll: Routes = [
     MenuComponent,
     MilestonePartnerTaskEffortComponent,
     RootComponent,
+    RunLatexDialogComponent,
     SortableListComponent,
     TaskPartnerEffortComponent,
 
@@ -107,6 +109,7 @@ const catchAll: Routes = [
 
     MatButtonModule,
     MatDialogModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -137,6 +140,7 @@ const catchAll: Routes = [
   entryComponents: [
     CreateLatexDialogComponent,
     InstantiationDialogComponent,
+    RunLatexDialogComponent,
   ]
 })
 export class PropgenModule {

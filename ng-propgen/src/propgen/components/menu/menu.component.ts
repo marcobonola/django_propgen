@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MatDialog} from '@angular/material';
 import {InstantiationDialogComponent} from './dialogs/instantiation.dialog.component';
 import {CreateLatexDialogComponent} from './dialogs/create-latex.dialog.component';
+import {RunLatexDialogComponent, RunLatexResponse} from './dialogs/run-latex.dialog.component';
 
 export type InstantiateResponse = {
   obj: {
@@ -50,8 +51,11 @@ export class MenuComponent {
     });
   }
   public runLatex() {
-    /*this.dispatchJob('/runLaTeX/', (statusResponse) => {
-      // TODO: show modal
-    });*/
+    this.dispatchJob('/runLaTeX/', (statusResponse: {startfiles: RunLatexResponse[]}) => {
+      this.dialog.open(RunLatexDialogComponent, {
+        width: '70vw',
+        data: statusResponse.startfiles
+      });
+    });
   }
 }
