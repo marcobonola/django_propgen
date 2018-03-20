@@ -11,6 +11,7 @@ services:
                 command: [bash, "-c", "./post_build_setup.sh && uwsgi --socket :8000 --module django_propgen.wsgi"]
                 volumes:
                         - ./django/static/:/code/static
+                        - ./django/media/:/code/media
                         #- ./django/:/code
                         #- ./django/conf/:/etc/nginx/sites-enabled/
                 depends_on:

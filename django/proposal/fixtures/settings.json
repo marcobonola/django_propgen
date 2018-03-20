@@ -763,5 +763,23 @@
       "group": "Etherpad"
     },
     "model": "proposal.setting"
-  }
+  },
+  {
+    "pk": 86,
+    "fields": {
+      "name": "tocLevel",
+      "value": "3",
+      "group": "LaTeX"
+    },
+    "model": "proposal.setting"
+  },
+  {
+    "pk": 87,
+    "fields": {
+      "name": "secNumDepth",
+      "value": "3",
+      "group": "LaTeX"
+    },
+    "model": "proposal.setting"
+  },
 ]
