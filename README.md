@@ -165,11 +165,6 @@ This docker file consistes of 2 sections:
 * section 1 is responsible for building the angular-cli project implementing the Django-propgen front end
 * section 2 is responsible for creating a docker containg running a nginx web server that serves the django-propgen FE
 
-Building the frontend does not require anything special besides the requirements for building any Angular application:
-1. The image needs at least node 6.9.x and npm 3.x.x installed
-2. Among several dependencies, the image needs to have the Angular CLI (version > 1.6.0) installed 
-3. In the `code/` directory, we need to execute `npm install` once to install the dependencies listed in `package.json`
-4. To build the angular project we need to run `npm run build -- --prod --environment prod`
 
 Such opearations are execurted on the Docker image johnpapa/angular-cli. Note that the resulting Docker image can be "trashed" after creating building the Angular project. Indeed, in section 2, the content of `/code/dist/` is copied in a new Docker image (`nginx`) that will actually execute the nginx web server hosting the propgen front end. The nginx web server relies on the follwing virtual host configuration file, `./nginx-custom.conf` which is copied in the path `/etc/nginx/conf.d/default.conf` on the new Docker image.
 
@@ -263,19 +258,57 @@ The django-propgen platform can be deployed in a physical server environment out
 3. configure the django project
 4. configure a web server
 
-This section gives a brief overview of the required steps with particular focus on the configuration paramenters that has to be changed from the configuration files in the docker composition. 
+As starting point, one can still clone this repository and prepare the environment without Docker. This section gives a brief overview of the required steps with particular focus on the configuration paramenters that has to be changed from the configuration files in the docker composition. 
 
 ### Configure the DB
-TODO
+As for any django project, different DB techologies can be used (e.g. SQLite, Postgres, MySQL, etc..). There are no particular requirements for the DB to be used with the django BE as long as the relevant configuration setting is properly configured in the `settings.py` file.  
 
 ### Build the angular FE
-TODO
+Building the frontend does not require anything special besides the requirements for building any Angular application:
+1. The image needs at least node 6.9.x and npm 3.x.x installed
+2. Among several dependencies, the image needs to have the Angular CLI (version > 1.6.0) installed 
+3. Execute `npm install` once to install the dependencies listed in `package.json`
+4. To build the angular project we need to run `npm run build -- --prod --environment prod`
+5. In production mode a web server is needed to serve a virtual host whose root directory is the output directory of the `npm run build`
 
-### Condifure the django application
-TODO
+Alternatively the FE can be tested in development mode by running
+`ng server --port $PORT --host 0.0.0.0`
+
+Differently from the configuration file in the docker composition, to properly run the propgen BE we need to specify the backend (address:port) in the files: `ng-propgen/src/environments/environment.prod.ts` and `ng-propgen/src/environments/environment.ts`
+
+
+### Set-up the django BE
+To set-up the django BE the following commands are required:
+1. collect the static files
+```
+python manage.py collectstatic --no-input
+```
+The static root URL and the output directory of this command can be configured with the configuration key `STATIC_ROOT` `STATIC_URL` in the `settings.py` file. 
+
+2. apply migrations (with the first initialization migration)
+```
+python manage.py makemigrations && python manage.py migrate
+```
+
+3. load the followign fixtures
+```
+python manage.py loaddata proposal/fixtures/project.json
+python manage.py loaddata proposal/fixtures/settings.json
+python manage.py loaddata proposal/fixtures/template.json
+python manage.py loaddata proposal/fixtures/textblock.json
+python manage.py loaddata proposal/fixtures/proposal.json
+```
+
+4. for testing, one can run a development server with 
+```
+python manage.py runserver 0.0.0.0:$PORT 
+```
 
 ### Configure a web server virtual host
-TODO
+In production scenarios, one migth want to create a virtual host in an external web server to handle the application wsgi. Several options are available. In case of webservers supporting wsgi applications (e.g. apache2) no external applications are required. In case of web servers not supporting wsgi applications, external wsgi servers are required (e.g. nginx + gunicorn, nginx + uwsgi).
+
+**Note** that django-propgen requires a pandoc-crossref  binary already installed on the system. The path of the executable can be configured in `settings.py` (see `default_settings['pandoc']['filter']`).
+
 
 ## Built With
 * [Django 1.14] (https://cli.angular.io)
