@@ -118,6 +118,7 @@ At the end of every boot, the following command is executed to launch the uwsgi 
 
 The django application DB configuration can be found in the file `django/django_propgen/setup.py` and it is reported below
 
+```
 DATABASES = {
     'default' : {
         'ENGINE': 'django.db.backends.mysql',
@@ -128,6 +129,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+```
 
 **Note:** 'propgen-db' is the host name of the docker container running the django-propgen MySQL DB. 
 
