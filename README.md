@@ -176,7 +176,7 @@ Such opearations are execurted on the Docker image johnpapa/angular-cli. Note th
 This container communicates with the propgen-lb (see next section). The relevant "backend address" configuration can be found in `ng-propgen/src/environments/environment.prod.ts`. Note that since the angular application is executed in the browser, the backend needs to be accessed from outside the docker container world. In the default deployment scenario (in which the docker composition is executed on the same host machine), the backend endpoint is 127.0.0.1:80. The docker image hosting the nginx backend server, will need to expose port 80 (see next section). 
 
 #### propgen-lb
-The propgen-lb service implements a nginx based web server that is placed between the propgen FE and BE. It serves the web requests from the propgen front end and interact with the django wsgi application hosted in the propgen-be container. In future development, this container could act as a load balancer. Despite the name, this cpontainer only interact with one instance of the Django-propgen BE.  The following excerpts is the docker-composition.yml section responsible for the propgen-lb service.
+The propgen-lb service implements a nginx based web server that is placed between the propgen FE and BE. It serves the web requests from the propgen front end and interact with the django wsgi application hosted in the propgen-be container. In future developments, this container could act as a load balancer. Despite the name, in the latest platform version, this container only interact with one instance of the Django-propgen BE.  The following excerpts is the docker-composition.yml section responsible for the propgen-lb service.
 
 ```
 propgen-lb:
@@ -245,19 +245,42 @@ propgen-db:
 
 This container is basically a common `mysql` Docker image with post installation setup `mysql/conf/env`
  
+### Building and running
+To build and run the docker composition execute the following command:
+
+```
+docker-compose up --build
+```
+
+To test the platform open a browser and connect to `http://127.0.0.1:48484/`
 
 
 ## Standalone deployment scenario
+The django-propgen platform can be deployed in a physical server environment outside the docker virtualization environmne by performing the following actions:
 
+1. prepare the backend database
+2. build the angular project
+3. configure the django project
+4. configure a web server
 
-## Platform usage
+This section gives a brief overview of the required steps with particular focus on the configuration paramenters that has to be changed from the configuration files in the docker composition. 
 
+### Configure the DB
+TODO
+
+### Build the angular FE
+TODO
+
+### Condifure the django application
+TODO
+
+### Configure a web server virtual host
+TODO
 
 ## Built With
 * [Django 1.14] (https://cli.angular.io)
 * [Angular CLI 1.6] (https://cli.angular.io)
 * [Docker] (https://docker.com)
-
 
 ## Authors
 * **Holger Karl** - *Concept, first working version, project leader* - (https://github.com/hkarl)
